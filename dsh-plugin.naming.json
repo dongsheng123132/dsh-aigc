@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "policy": "dsh-plugin-naming/v1",
+  "plugin": {
+    "namespace": "hfshfg",
+    "name": "aigc",
+    "coordinate": "hfshfg/aigc",
+    "packageName": "@hfshfg/dsh-aigc"
+  },
+  "names": {
+    "pluginNames": [
+      "hfshfg-aigc"
+    ],
+    "loaderIds": [
+      "hfshfg-aigc"
+    ],
+    "services": [],
+    "tools": [
+      "dsh_aigc_image",
+      "dsh_aigc_music",
+      "dsh_aigc_wallet"
+    ],
+    "commands": [],
+    "skills": [],
+    "skillProviders": [],
+    "events": [],
+    "settingsNamespaces": [],
+    "routes": []
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "@hfshfg/dsh-aigc",
+  "version": "0.1.0",
+  "description": "AI image and music generation tools for DeepSeek Harness, billed through the Xiapan Cloud device wallet. Install is free; each generation spends wallet balance.",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "lib/",
+    "cordis.patch.yml",
+    "dsh-plugin.naming.json",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "aigc",
+    "image-generation",
+    "text-to-image",
+    "music-generation",
+    "text-to-song",
+    "suno",
+    "作图",
+    "画图",
+    "文生图",
+    "音乐生成",
+    "文生歌",
+    "出歌",
+    "suno音乐",
+    "xiapan",
+    "虾盘云",
+    "device-wallet",
+    "pay-per-use",
+    "按次付费"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "*"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/dsh-tools": {
+      "optional": true
+    }
+  },
+  "dsh": {
+    "bundle": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hfshfg/dsh-aigc"
+  },
+  "homepage": "https://github.com/hfshfg/dsh-aigc#readme",
+  "bugs": {
+    "url": "https://github.com/hfshfg/dsh-aigc/issues"
+  }
+}
