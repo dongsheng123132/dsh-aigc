@@ -45,7 +45,7 @@ export function createDefinitions(ctx, config = {}) {
       parameters: {
         prompt: { type: 'string', required: true, description: 'Full image prompt. Chinese works; English is steadier for photorealistic detail.' },
         size: { type: 'string', description: 'Pixels like 1024x1024, 1024x1536, 1536x1024; ratio strings such as 3:4 are mapped; default auto.' },
-        model: { type: 'string', description: 'Image model id; default from config (gpt-image-2).' },
+        model: { type: 'string', description: 'Image model id; default from config (gpt-image-2.5-1k).' },
         n: { type: 'number', description: 'How many images, 1-4 (default 1).' }
       },
       output: { schema: { type: 'json' }, render: renderJson },
