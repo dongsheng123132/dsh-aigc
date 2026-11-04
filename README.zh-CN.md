@@ -19,6 +19,10 @@
 ## 安装
 
 ```bash
+# 从 npm 装（推荐：npm 12 起默认拦 github: 安装）
+dsh plugin --profile <名字> add @hfshfg/dsh-aigc
+
+# 或直接从仓库装
 dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 ```
 

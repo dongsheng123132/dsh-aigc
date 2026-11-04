@@ -17,6 +17,10 @@ No API keys to register for, no subscription. The first call binds a wallet (bal
 ## Install
 
 ```bash
+# from npm (recommended — npm 12 blocks github: installs by default)
+dsh plugin --profile <name> add @hfshfg/dsh-aigc
+
+# or straight from the repository
 dsh plugin --profile <name> add github:hfshfg/dsh-aigc
 ```
 
