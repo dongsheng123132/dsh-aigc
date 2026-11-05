@@ -36,7 +36,7 @@ Every value below can be overridden; nothing is hard-coded.
 | `payBaseUrl` | env `UCLAW_PAY_BASE_URL` or `https://u-claw.org.cn` | Recharge page base |
 | `apiKey` | – | Pin a specific key instead of resolving one |
 | `outputDir` | `~/Downloads/dsh-aigc` | Where images and audio land |
-| `imageModel` | `gpt-image-2` | Image model id |
+| `imageModel` | `gpt-image-2.6-1k` | Image model id (¥0.03/image; GIF when the prompt asks for one) |
 | `pollIntervalMs` | `10000` | Music task polling interval |
 | `maxPollMs` | `600000` | Music polling ceiling |
 | `imageTimeoutMs` | `180000` | Per-request timeout |
@@ -70,15 +70,18 @@ Every value below can be overridden; nothing is hard-coded.
 
 提示词：*极简风格的产品海报背景：深蓝色渐变夜空，一枚发光的几何方块悬浮中央，细密星点，电影感光影，超高清，留白构图*
 
-模型 `gpt-image-2.5-1k`，1024×1024，耗时 35 秒，**实扣 ¥0.03**。
+模型 `gpt-image-2.5-1k`，1024×1024，耗时 35 秒，**实扣 ¥0.03**。（这张是 2.5 时期生成的；现在默认 `gpt-image-2.6-1k`，同价，且支持 GIF。）
 
 ## 实测成本（2026-11-03 真金充值实测）
 
 | 动作 | 模型 | 实测成本 |
 |---|---|---|
-| 出图 | `gpt-image-2.5-1k` | **¥0.03 / 张** |
+| 出图（默认） | `gpt-image-2.6-1k` | **¥0.03 / 张**（GIF 同价，2026-11-05 实测 36.5 s 出 631 KB GIF） |
+| 出图 | `gpt-image-2.5-1k` | **¥0.03 / 张**（固定尺寸档，无 GIF） |
 | 出图 | `gpt-image-2` | ≈ ¥2.2 / 张（贵 70 倍，慎用） |
 | 低价会审（4 家 + 裁判） | 见 dsh-panel | **¥0.06–0.08 / 次** |
+
+**GIF:** put “generate a GIF” / 「生成 GIF 图」 in the prompt — the default model returns an animated GIF (fixed 553×309), saved with a real `.gif` extension, same ¥0.03. 中文：提示词写「生成 GIF 图」即可，按真实字节头存成 .gif。
 
 **¥1 ≈ 50 万额度，不是 50 万次调用。** 图片按张固定价（`quota_type=1`），对话按 token 倍率（`quota_type=0`），两者计费方式不同。
 

@@ -38,7 +38,7 @@ dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 | `payBaseUrl` | 环境变量 `UCLAW_PAY_BASE_URL` 或 `https://u-claw.org.cn` | 充值页地址 |
 | `apiKey` | 空 | 指定一把固定密钥，跳过自动解析 |
 | `outputDir` | `~/Downloads/dsh-aigc` | 图片和音频落地目录 |
-| `imageModel` | `gpt-image-2` | 图像模型 id |
+| `imageModel` | `gpt-image-2.6-1k` | 图像模型 id（¥0.03/张；提示词要 GIF 就出 GIF） |
 | `pollIntervalMs` | `10000` | 音乐任务轮询间隔 |
 | `maxPollMs` | `600000` | 音乐轮询总上限 |
 | `imageTimeoutMs` | `180000` | 单次请求超时 |
@@ -73,7 +73,7 @@ dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 
 提示词：*极简风格的产品海报背景：深蓝色渐变夜空，一枚发光的几何方块悬浮中央，细密星点，电影感光影，超高清，留白构图*
 
-模型 `gpt-image-2.5-1k`，1024×1024，耗时 35 秒，**实扣 ¥0.03**。
+模型 `gpt-image-2.5-1k`，1024×1024，耗时 35 秒，**实扣 ¥0.03**。（这张是 2.5 时期生成的；现在默认 `gpt-image-2.6-1k`，同价，且支持 GIF。）
 
 ## 真产物 · 音乐
 
@@ -90,10 +90,13 @@ dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 
 | 动作 | 模型 | 实测成本 |
 |---|---|---|
-| 出图 | `gpt-image-2.5-1k` | **¥0.03 / 张** |
+| 出图（默认） | `gpt-image-2.6-1k` | **¥0.03 / 张**（GIF 同价，2026-11-05 实测 36.5 s 出 631 KB GIF） |
+| 出图 | `gpt-image-2.5-1k` | **¥0.03 / 张**（固定尺寸档，无 GIF） |
 | 出图 | `gpt-image-2` | ¥0.32 / 张（贵 10.7 倍，慎用） |
 | 出歌 | `suno_music`（chirp-hawk = v6） | **¥1.2 / 次（一次 2 首，¥0.6/首）** |
 | 低价会审（4 家 + 裁判） | 见 dsh-panel | **¥0.06–0.08 / 次** |
+
+**GIF：** 提示词里写「生成 GIF 图」/「生成 gif 动图」，默认模型就返回动画 GIF（固定 553×309），按真实字节头存成 `.gif`，价格与静态图相同 ¥0.03。
 
 **¥1 ≈ 50 万额度，不是 50 万次调用。** 图片按张固定价（`quota_type=1`），对话按 token 倍率（`quota_type=0`），两者计费方式不同。
 
