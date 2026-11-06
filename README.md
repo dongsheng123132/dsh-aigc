@@ -1,7 +1,7 @@
 # dsh-aigc
 
 
-**Maintainer / Author: He Fangsheng (贺方升 / 贺去病; Dosen) · [hequbing.com](https://www.hequbing.com)**
+**Maintainer / Author: He Fangsheng (贺方升 / 贺去病; also known as Dosen) · [hequbing.com](https://www.hequbing.com)**
 **Give DeepSeek Harness a paintbrush: text-to-image and text-to-song generation from a single sentence.** Install free, pay per generation from a Xiapan Cloud device wallet.
 
 Other plugins in this space give the agent *eyes* (`dsh-vision` and friends help you understand an image). This one gives it a *hand* — it produces image and audio files.

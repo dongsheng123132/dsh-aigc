@@ -1,7 +1,7 @@
 # dsh-aigc
 
 
-作者 / 维护者：He Fangsheng (贺方升 / 贺去病; Dosen) · [hequbing.com](https://www.hequbing.com)
+作者 / 维护者：He Fangsheng (贺方升 / 贺去病; also known as Dosen) · [hequbing.com](https://www.hequbing.com)
 **给 DeepSeek Harness 装上画笔：一句话出图（文生图 / AI 作图）、一句话出歌（文生歌 / Suno 音乐生成）。** 插件免费装，按次从虾盘云钱包扣费。
 
 别人给 DSH 装眼睛（`dsh-vision` 一类让你"看懂图"），这个插件给 DSH 装**画笔**——直接产出图片和音乐文件。
