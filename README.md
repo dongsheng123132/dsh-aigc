@@ -95,7 +95,7 @@ Model ids change; the plugin does not keep a list. To see what your account can 
 GET {baseUrl}/api/pricing
 ```
 
-At the time of writing (2026-11-09), `/v1/models` returned 86 callable models; the music family is `suno_music`, `suno_lyrics`, `suno_concat`, `suno_uploads` (the last one takes a public audio URL, it does not accept a local file). Model availability drifts — always ask `/v1/models` instead of copying this list.
+`/v1/models` returns the models **your key** may call — it is filtered by that key's whitelist, so the count differs per user (2026-11-09: 58 for a normal wallet key). The music family on that list is `suno_music`, `suno_lyrics`, `suno_uploads` (`suno_concat` needs to be enabled for your key; `suno_uploads` takes a public audio URL, not a local file). Always call `/v1/models` instead of copying this list.
 
 ## Troubleshooting
 

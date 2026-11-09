@@ -110,7 +110,7 @@ dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 GET {baseUrl}/api/pricing
 ```
 
-实测口径（2026-11-09）：`/v1/models` 返回 **86 个可调模型**；音乐族是 `suno_music`、`suno_lyrics`、`suno_concat`、`suno_uploads`（最后这个只接受**公网可访问的音频 URL**，不收本地文件）。模型可用性会漂，写代码前先打 `/v1/models`，别照抄这份清单。
+`/v1/models` 返回的是**你这把钥匙能调**的模型——它按该钥匙的白名单过滤，所以每个人看到的数量不同（2026-11-09 普通钱包卡实测 58 个）。音乐族可见的是 `suno_music`、`suno_lyrics`、`suno_uploads`（`suno_concat` 需要单独开通；`suno_uploads` 只接受**公网可访问的音频 URL**，不收本地文件）。写代码前先打一次 `/v1/models`，别照抄清单。
 
 ## 排错
 
