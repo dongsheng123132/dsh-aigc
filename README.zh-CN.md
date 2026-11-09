@@ -110,7 +110,7 @@ dsh plugin --profile <名字> add github:hfshfg/dsh-aigc
 GET {baseUrl}/api/pricing
 ```
 
-写这份文档时该接口返回 **179 个模型**，其中图像类有 `gpt-image-2.5-sunburst`、`seedream-4-5`、`gemini-3-pro-image`、`wan2.7-image-pro`，音乐类有 `suno_music`、`suno_concat`。
+实测口径（2026-11-09）：`/v1/models` 返回 **86 个可调模型**；音乐族是 `suno_music`、`suno_lyrics`、`suno_concat`、`suno_uploads`（最后这个只接受**公网可访问的音频 URL**，不收本地文件）。模型可用性会漂，写代码前先打 `/v1/models`，别照抄这份清单。
 
 ## 排错
 

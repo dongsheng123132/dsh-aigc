@@ -95,7 +95,7 @@ Model ids change; the plugin does not keep a list. To see what your account can 
 GET {baseUrl}/api/pricing
 ```
 
-At the time of writing that endpoint returned 179 models, including image (`gpt-image-2.5-sunburst`, `seedream-4-5`, `gemini-3-pro-image`, `wan2.7-image-pro`) and music (`suno_music`, `suno_concat`).
+At the time of writing (2026-11-09), `/v1/models` returned 86 callable models; the music family is `suno_music`, `suno_lyrics`, `suno_concat`, `suno_uploads` (the last one takes a public audio URL, it does not accept a local file). Model availability drifts — always ask `/v1/models` instead of copying this list.
 
 ## Troubleshooting
 

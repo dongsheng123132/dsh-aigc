@@ -19,11 +19,15 @@ function fail(error, wallet) {
   const s = wallet.status()
   // 实测：余额透支时 /v1/* 会返回 "Invalid token"，容易误判成密钥坏了。
   // 所以 401 一律先让人查余额，再谈换密钥。
+  // 另一类更坑：403 permission_denied（模型没开通）也曾被归进「换密钥」，
+  // 2026-11-09 有客户照此换了新 key 又充值，问题依旧。三类必须分开说。
   const hint = /余额不足/.test(message)
     ? `充值后重试：${s.rechargeUrl || '（未绑定钱包）'}`
-    : /凭证无效|401|403/.test(message)
-      ? '先跑 dsh_aigc_wallet（action=balance）看余额：余额为 0 或负数时，/v1 会报 Invalid token，充值即可；余额正常才说明密钥失效，用 action=adopt 换一把。'
-      : undefined
+    : /没给这把密钥开权限|permission_denied/.test(message)
+      ? '这是模型权限问题，不是密钥失效，也不用重复充值：把这个模型名发给客服加进白名单即可。'
+      : /凭证无效/.test(message)
+        ? '先跑 dsh_aigc_wallet（action=balance）看余额：余额为 0 或负数时，/v1 会报 Invalid token，充值即可；余额正常才说明密钥失效，用 action=adopt 换一把。'
+        : undefined
   return { ok: false, error: message, ...(hint ? { hint } : {}) }
 }
 
@@ -45,7 +49,7 @@ export function createDefinitions(ctx, config = {}) {
       parameters: {
         prompt: { type: 'string', required: true, description: 'Full image prompt. Chinese works; English is steadier for photorealistic detail.' },
         size: { type: 'string', description: 'Pixels like 1024x1024, 1024x1536, 1536x1024; ratio strings such as 3:4 are mapped; default auto.' },
-        model: { type: 'string', description: 'Image model id; default from config (gpt-image-2.5-1k).' },
+        model: { type: 'string', description: 'Image model id; defaults to gpt-image-2.6-1k (¥0.03/image). Write "generate a GIF" in the prompt to get an animated GIF at the same price.' },
         n: { type: 'number', description: 'How many images, 1-4 (default 1).' }
       },
       output: { schema: { type: 'json' }, render: renderJson },
@@ -107,16 +111,31 @@ export function createDefinitions(ctx, config = {}) {
     defineTool({
       name: 'dsh_aigc_wallet',
       description:
-        'Inspect the Xiapan Cloud device wallet used by the AIGC tools: binding status, masked key, balance and recharge link. ' +
-        'Action "adopt" binds an existing key from another machine (balance follows the wallet).',
+        'Set up or inspect the Xiapan Cloud wallet used by the AIGC tools. Each user gets their OWN wallet — money goes to their own account, not a shared key. ' +
+        'Actions: "setup" (no key yet → returns how to create a personal wallet and the recharge link), "status", "balance", ' +
+        '"adopt" (use an existing sk- key from elsewhere; the balance follows that wallet), "bind" (create a fresh empty wallet).',
       parameters: {
-        action: { type: 'string', enum: ['status', 'balance', 'adopt', 'bind'], description: 'status (default) | balance (read-only usage) | adopt (use an existing key) | bind (create a fresh empty wallet).' },
+        action: { type: 'string', enum: ['setup', 'status', 'balance', 'adopt', 'bind'], description: 'setup (first run: how to get your own wallet + recharge link) | status | balance | adopt (paste an existing sk- key) | bind (create a fresh empty wallet).' },
         apiKey: { type: 'string', description: 'Only for action=adopt: the sk-… key to use (its wallet balance comes with it).' }
       },
       output: { schema: { type: 'json' }, render: renderJson },
       async execute(args) {
         const action = args.action || 'status'
         try {
+          if (action === 'setup') {
+            const st = wallet.status()
+            return {
+              ok: true,
+              bound: st.bound,
+              wallet: st,
+              twoWays: [
+                { case: '第一次用', do: '调用本工具 action=bind 开一个属于你自己的钱包（余额 0），再用下面的充值链接付款' },
+                { case: '已有密钥', do: '调用本工具 action=adopt 并传入 apiKey（sk- 开头），余额跟着钱包走' }
+              ],
+              recharge: st.rechargeUrl || '(先 bind 或 adopt 才会有充值链接)',
+              note: '每个用户一个独立钱包，充值进的是你自己的账户。¥1 = 50 万额度。'
+            }
+          }
           if (action === 'bind') {
             const b = await wallet.bindFresh()
             const st = wallet.status()
