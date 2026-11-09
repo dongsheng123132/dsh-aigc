@@ -14,6 +14,7 @@ No API keys to register for, no subscription. The first call binds a wallet (bal
 |---|---|
 | `dsh_aigc_image` | Text-to-image. Returns local file paths. Accepts pixel sizes (`1024x1536`) or ratios (`3:4`, auto-mapped). |
 | `dsh_aigc_music` | Text-to-song (vocals + lyrics) or instrumental. Async: submit → poll → download. Usually returns 2 variants. |
+| `dsh_aigc_upload` | Upload a reference audio track into Suno (public http(s) URL only — no local files). Returns a `clipId` for later concat / style reference. ¥0.045 per upload. |
 | `dsh_aigc_wallet` | `status` / `balance` / `adopt` (use a key from another machine) / `bind` (fresh empty wallet). |
 
 ## Install

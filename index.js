@@ -6,6 +6,7 @@ import { defineTool } from '@deepseek-ai/dsh-tools'
 import { createWallet } from './lib/wallet.mjs'
 import { generateImage } from './lib/image.mjs'
 import { generateMusic } from './lib/music.mjs'
+import { uploadAudio } from './lib/upload.mjs'
 
 export const name = 'hfshfg-aigc'
 export const inject = ['tools']
@@ -102,6 +103,32 @@ export function createDefinitions(ctx, config = {}) {
             outputDir
           })
           return { ...r, outputDir }
+        } catch (error) {
+          return fail(error, wallet)
+        }
+      }
+    }),
+
+    defineTool({
+      name: 'dsh_aigc_upload',
+      description:
+        'Upload a reference audio track into Suno and get a clipId back (for later concat / as style source material). ' +
+        'Only accepts a PUBLICLY reachable audio URL (http/https) — local file paths are rejected by the upstream gateway, ' +
+        'so put the file somewhere reachable first. Costs ¥0.045 per upload from the Xiapan Cloud wallet.',
+      parameters: {
+        url: { type: 'string', required: true, description: 'Public http(s) URL of the audio file (mp3/wav). Must be downloadable by the server — a local path will be rejected.' }
+      },
+      output: { schema: { type: 'json' }, render: renderJson },
+      async execute(args) {
+        try {
+          const s = await ensureReady()
+          return await uploadAudio({
+            baseUrl: wallet.baseUrl,
+            apiKey: s.apiKey,
+            url: args.url,
+            pollMs: config.pollIntervalMs,
+            maxPollMs: config.maxPollMs
+          })
         } catch (error) {
           return fail(error, wallet)
         }
