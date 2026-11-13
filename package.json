@@ -1,6 +1,6 @@
 {
   "name": "@hfshfg/dsh-aigc",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "AI image and music generation tools for DeepSeek Harness, billed through the Xiapan Cloud device wallet. Install is free; each generation spends wallet balance.",
   "type": "module",
   "main": "./index.js",
@@ -44,7 +44,7 @@
     "dsh": ">=0.1.0-rc.6 <0.3.0"
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-tools": "*"
+    "@deepseek-ai/dsh-tools": ">=0.1.0-rc.6 <0.3.0"
   },
   "peerDependenciesMeta": {
     "@deepseek-ai/dsh-tools": {
